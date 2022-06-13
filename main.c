@@ -6,11 +6,13 @@
 /*   By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 08:57:25 by rda-silv          #+#    #+#             */
-/*   Updated: 2022/06/12 10:41:41 by rda-silv         ###   ########.fr       */
+/*   Updated: 2022/06/12 21:46:37 by rda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <X11/X.h>
 #include <X11/keysym.h>
 #include <mlx.h>
 
@@ -30,10 +32,17 @@ int	handle_no_event()
 	return (0);
 }
 
-int	handle_input(int keysym, t_data *data)
+int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	printf("Keypress: %d\n", keysym);
+	return (0);
+}
+
+int	handle_keyrelease(int keysym)
+{
+	printf("Keypress: %d\n", keysym);
 	return (0);
 }
 
@@ -52,7 +61,8 @@ int	main(void)
 	}
 	/*Setup hooks*/
 	mlx_loop_hook(data.mlx_ptr, &handle_no_event, &data);
-	mlx_key_hook(data.win_ptr, &handle_input, &data);
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
+	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
 	mlx_loop(data.mlx_ptr);
 	/* we will exit the loop if there's no window left, and execute this code */
 	mlx_destroy_window(data.mlx_ptr, data.win_ptr);
