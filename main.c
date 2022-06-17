@@ -6,13 +6,14 @@
 /*   By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 21:58:28 by rda-silv          #+#    #+#             */
-/*   Updated: 2022/06/16 23:05:08 by rda-silv         ###   ########.fr       */
+/*   Updated: 2022/06/17 07:30:05 by rda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <mlx.h>
 #include <X11/X.h>
 #include <X11/keysym.h>
 
@@ -48,7 +49,7 @@ typedef struct s_rect
 	int	color;
 }	t_rect;
 
-void img_pix_put(t_img *img, int x, int y, int color)
+void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 	int		i;
@@ -58,12 +59,14 @@ void img_pix_put(t_img *img, int x, int y, int color)
 	while (i >= 0)
 	{
 		if (img->endian != 0)
+			*pixel++ = (color >> i) & 0xFF;
+		else
 			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
 		i -= 8;
 	}
 }
 
-int render_rect(t_img *img, t_rect rect)
+int	render_rect(t_img *img, t_rect rect)
 {
 	int	i;
 	int	j;
