@@ -6,7 +6,7 @@
 /*   By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 08:57:25 by rda-silv          #+#    #+#             */
-/*   Updated: 2022/06/15 20:49:09 by rda-silv         ###   ########.fr       */
+/*   Updated: 2022/06/15 22:03:28 by rda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,32 @@
 #define WINDOW_HEIGHT 300 //Constante da altura da janela
 #define MLX_ERROR 1 //Constante onde setamos o valor de retorno do erro
 #define RED_PIXEL 0xff0000 // Constante do valor do pixel, neste caso vermelho
+#define GREEN_PIXEL 0xFF00// Constante do valor do retangulo, setado como verde
+#define WHITE_PIXEL 0xFFFFFF// Constante do valor do fundo, setado como branco
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /*bit per pixel*/
+	int		line_len;
+	int		endian;
+}	t_img;
+
+typedef struct s_rect
+{
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+	int	color;
+}	t_rect;
 
 typedef struct s_data
 {
 	void	*mlx_ptr; //ponteiro que receberá o minilibx
 	void	*win_ptr; //ponteiro que receberá a janela
+	t_img	img;
 }	t_data; 
 
 int	handle_keypress(int keysym, t_data *data)
@@ -37,11 +58,46 @@ int	handle_keypress(int keysym, t_data *data)
 	return (0);
 }
 
+int	render_rect(t_data *data, t_rect rect)
+{
+	int	i;
+	int	j;
+
+	if (data->win_ptr == NULL)
+		return (MLX_ERROR);
+	i = rect.y;
+	while (i < rect.y + rect.height)
+	{
+		j = rect.x;
+		while (j < rect.x + rect.width)
+			mlx_pixel_put(data->mlx_ptr, data->win_ptr, j++, i, rect.color);
+		++i;
+	}
+	return (0);
+}
+
+void	render_background(t_data *data, int color)
+{
+	int	i;
+	int	j;
+
+	if (data->win_ptr == NULL)
+		return;
+	i = 0;
+	while (i < WINDOW_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_WIDTH)
+			mlx_pixel_put(data->mlx_ptr, data->win_ptr, j++, i, color);
+		i++;
+	}
+}
+
 int	render(t_data * data)
 {
-	if (data->win_ptr != NULL) // verifica se a janela ainda existe antes de colocar o pixel
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, 
-			WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, RED_PIXEL);
+	render_background(data, WHITE_PIXEL);
+	render_rect(data, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 200, 100, 200, GREEN_PIXEL});
+	render_rect(data, (t_rect){0, 0, 200, 100, RED_PIXEL});
 	return (0);
 }
 
