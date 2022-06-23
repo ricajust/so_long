@@ -1,0 +1,8 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/rda-silv/projects/so_long'
+echo 'Building binary using GCC linker: so_long'
+gcc src/main.o src/window.o -g -o so_long
+echo 'Finished building binary: so_long'
+echo ' '
+make: Leaving directory '/home/rda-silv/projects/so_long'
+ 

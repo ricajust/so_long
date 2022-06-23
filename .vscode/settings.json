@@ -1,0 +1,7 @@
+{
+	"makefile.extensionOutputFolder": "./.vscode",
+	"files.associations": {
+		"x.h": "c",
+		"keysym.h": "c"
+	}
+}
