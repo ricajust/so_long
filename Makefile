@@ -5,68 +5,59 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/06/21 22:01:18 by rda-silv          #+#    #+#              #
-#    Updated: 2022/06/22 22:03:05 by rda-silv         ###   ########.fr        #
+#    Created: 2022/07/03 15:34:52 by rda-silv          #+#    #+#              #
+#    Updated: 2022/07/03 15:36:07 by rda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# VARIABLES
-# project name
-PROJ_NAME=so_long
+# LIBFT_PATH		=	./library/libft
+# LIBFT			=	$(LIBFT_PATH)/libft.a
 
-# .c files
-SRC_C=$(wildcard ./src/*.c)
+MINILIBX_PATH	=	./library/minilibx
+MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
-# .h files
-SRC_H=$(wildcard ./src/*.h)
+SOURCE_FILES	=	main.c 
 
-# object file
-#OBJ=$(patsubst %.c, obj/%.o, $(notdir $(SRC_C)))
-OBJ=$(SRC_C:.c=.o)
+SOURCE_DIR		=	source
+HEADER			=	$(SOURCE_DIR)/so_long.h
 
-# compiler
-CC=gcc
+SOURCES			=	$(addprefix $(SOURCE_DIR)/, $(SOURCE_FILES))
 
-# compiler flags
-CC_FLAGS=-g      \
-		 -Wall   \
-		 -Wextra \
-		 -Werror \
-		 -lmlx   \
-		 -lXext  \
-		 -lX11
+OBJECTS			= 	$(SOURCES:.c=.o)
 
-# others projects dependencies
-MLX=minilibx/Makefile
+NAME			=	so_long
 
-# clean target
-RM = rm -rf
+CC				=	gcc
+RM				=	rm -f
 
-# compilation and linking
-all: $(PROJ_NAME)
+CFLAGS			=	-Wall -Wextra -Werror
+MLXFLAGS		=	-L. -lXext -L. -lX11
 
-$(PROJ_NAME): $(OBJ)
-	@ echo 'Building binary using GCC linker: $@'
-	$(CC) $^ -g -o $@
-	@ echo 'Finished building binary: $@'
-	@ echo ' '
+.c.o:
+				$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
-$(MLX):
-	@echo " [ .. ] | Compiling minilibx.."
-	@make -s -C mlx
-	@echo " [ OK ] | Minilibx ready!"
+all:			$(NAME)
 
-./obj/%.o: ./src/%.c ./src/%.h
-	@ echo 'Building target using GCC compiler: $<'
-	$(CC) $< $(CC_FLAGS) -o $@ $(X_FLAGS)
-	@ echo ' '
+# $(NAME):		$(LIBFT) $(MINILIBX) $(OBJECTS) $(HEADER)
+$(NAME):		$(MINILIBX) $(OBJECTS) $(HEADER)
+				$(CC) $(CFLAGS) $(OBJECTS) $(MINILIBX) $(MLXFLAGS) -o $(NAME)
 
-./obj/main.o: ./src/main.c $(SRC_H)
-	@ echo 'Building target using GCC compiler: $<'
-	$(CC) $< $(CC_FLAGS) -o $@ $(X_FLAGS)
-	@ echo ' '
+
+# $(LIBFT):
+# 				$(MAKE) -C $(LIBFT_PATH)
+
+$(MINILIBX):
+				$(MAKE) -C $(MINILIBX_PATH)
 
 clean:
-	@ $(RM) ./src/*.o $(PROJ_NAME) *~
+#				$(MAKE) -C $(LIBFT_PATH) clean
+				$(MAKE) -C $(MINILIBX_PATH) clean
+				$(RM) $(OBJECTS)
 
-.PHONY: all clean
+fclean:			clean
+#				$(MAKE) -C $(LIBFT_PATH) fclean
+				$(RM) $(NAME)
+
+re:				fclean all
+
+.PHONY:			all clean fclean re libft minilibx bonus

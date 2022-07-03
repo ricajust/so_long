@@ -1,7 +1,10 @@
 {
 	"makefile.extensionOutputFolder": "./.vscode",
 	"files.associations": {
+<<<<<<< HEAD
 		"x.h": "c",
+=======
+>>>>>>> poc/minilibx_and_window
 		"keysym.h": "c"
 	}
 }

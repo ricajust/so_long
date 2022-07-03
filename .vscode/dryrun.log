@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/rda-silv/projects/so_long'
 echo 'Building binary using GCC linker: so_long'
@@ -6,3 +7,11 @@ echo 'Finished building binary: so_long'
 echo ' '
 make: Leaving directory '/home/rda-silv/projects/so_long'
  
+=======
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/rda-silv/projects/so_long'
+make: Leaving directory '/home/rda-silv/projects/so_long'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
+>>>>>>> poc/minilibx_and_window
