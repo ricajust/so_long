@@ -8,11 +8,7 @@
 			"name": "(gdb) Iniciar",
 			"type": "cppdbg",
 			"request": "launch",
-<<<<<<< HEAD
 			"program": "${workspaceFolder}/so_long",
-=======
-			"program": "${workspaceFolder}/a.out",
->>>>>>> poc/minilibx_and_window
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",

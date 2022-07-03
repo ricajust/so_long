@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 21:58:15 by rda-silv          #+#    #+#             */
-/*   Updated: 2022/07/03 15:55:58 by rda-silv         ###   ########.fr       */
+/*   Created: 2022/06/26 15:45:59 by rda-silv          #+#    #+#             */
+/*   Updated: 2022/06/26 15:47:52 by rda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ typedef struct s_data
 }	t_data; 
 
 
-int	show_window(void);
 
 #endif

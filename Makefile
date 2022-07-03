@@ -6,7 +6,7 @@
 #    By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/03 15:34:52 by rda-silv          #+#    #+#              #
-#    Updated: 2022/07/03 15:36:07 by rda-silv         ###   ########.fr        #
+#    Updated: 2022/07/03 15:59:38 by rda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@
 MINILIBX_PATH	=	./library/minilibx
 MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
-SOURCE_FILES	=	main.c 
+SOURCE_FILES	=	main.c \
+					window.c
+
 
 SOURCE_DIR		=	source
 HEADER			=	$(SOURCE_DIR)/so_long.h
@@ -30,7 +32,7 @@ NAME			=	so_long
 CC				=	gcc
 RM				=	rm -f
 
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-g -Wall -Wextra -Werror
 MLXFLAGS		=	-L. -lXext -L. -lX11
 
 .c.o:
