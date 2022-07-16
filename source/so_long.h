@@ -6,14 +6,15 @@
 /*   By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:58:15 by rda-silv          #+#    #+#             */
-/*   Updated: 2022/07/03 15:55:58 by rda-silv         ###   ########.fr       */
+/*   Updated: 2022/07/16 17:22:34 by rda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H //Nome do progama
-# define WINDOW_WIDTH 600 //Constante da largura da janela
-# define WINDOW_HEIGHT 300 //Constante da altura da janela
+# define WIN_WIDTH 600 //Constante da largura da janela
+# define WIN_HEIGHT 300 //Constante da altura da janela
+# define WIN_NAME "So long..."
 # define MLX_ERROR 1 //Constante onde setamos o valor de retorno do erro
 # define RED_PIXEL 0xff0000 // Constante do valor do pixel, neste caso vermelho
 # define GREEN_PIXEL 0xFF00// Constante do valor do retangulo, setado como verde
