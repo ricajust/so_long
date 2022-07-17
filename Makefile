@@ -6,34 +6,26 @@
 #    By: rda-silv <rda-silv@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/03 15:34:52 by rda-silv          #+#    #+#              #
-#    Updated: 2022/07/03 15:59:38 by rda-silv         ###   ########.fr        #
+#    Updated: 2022/07/16 18:02:57 by rda-silv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # LIBFT_PATH		=	./library/libft
 # LIBFT			=	$(LIBFT_PATH)/libft.a
-
 MINILIBX_PATH	=	./library/minilibx
 MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
-
 SOURCE_FILES	=	main.c \
 					window.c
-
-
 SOURCE_DIR		=	source
 HEADER			=	$(SOURCE_DIR)/so_long.h
-
 SOURCES			=	$(addprefix $(SOURCE_DIR)/, $(SOURCE_FILES))
-
 OBJECTS			= 	$(SOURCES:.c=.o)
-
 NAME			=	so_long
-
 CC				=	gcc
 RM				=	rm -f
-
 CFLAGS			=	-g -Wall -Wextra -Werror
 MLXFLAGS		=	-L. -lXext -L. -lX11
+VALGRIND		=	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -q --tool=memcheck
 
 .c.o:
 				$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
@@ -51,6 +43,12 @@ $(NAME):		$(MINILIBX) $(OBJECTS) $(HEADER)
 $(MINILIBX):
 				$(MAKE) -C $(MINILIBX_PATH)
 
+run: $(NAME)
+	@$(NAME)
+
+valgrind: $(NAME)
+	@$(VALGRIND) $(NAME)
+
 clean:
 #				$(MAKE) -C $(LIBFT_PATH) clean
 				$(MAKE) -C $(MINILIBX_PATH) clean
@@ -62,4 +60,4 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re libft minilibx bonus
+.PHONY:			all clean fclean re libft minilibx valgrind bonus
